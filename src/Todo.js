@@ -1,11 +1,12 @@
 import _ from "lodash";
 
 class Todo {
-  constructor(title, desc, dueDate, priority) {
+  constructor(title, desc, dueDate, priority, project) {
     this.title = title;
     this.desc = desc;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.project = project;
     this.createdAt = new Date();
     this.isDone = false;
   }
