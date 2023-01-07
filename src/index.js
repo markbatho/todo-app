@@ -1,4 +1,4 @@
-import ProjectUI from "../components/Project";
+import ProjectUI from "./components/Project";
 import Sidebar from "./components/Sidebar";
 import EventManager from "./EventManager";
 import { Project, ProjectManager } from "./Project";

@@ -1,4 +1,4 @@
-import BaseComponent from "../../components/BaseComponent";
+import BaseComponent from "./BaseComponent";
 import projectIcon from "../icons/project.svg";
 import "../styles/sidebar.css";
 
