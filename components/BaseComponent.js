@@ -1,6 +1,7 @@
 class BaseComponent {
-  constructor() {
+  constructor(parent) {
     this.htmlElem = null;
+    this.parent = parent;
   }
 
   clean() {

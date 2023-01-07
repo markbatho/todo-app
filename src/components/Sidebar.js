@@ -1,10 +1,13 @@
 import BaseComponent from "../../components/BaseComponent";
 import projectIcon from "../icons/project.svg";
+import "../styles/sidebar.css";
 
 class SidebarListItem extends BaseComponent {
-  constructor(display) {
-    super();
+  constructor(parent, display) {
+    super(parent);
     this.display = display;
+
+    this.render();
   }
 
   render() {
@@ -22,17 +25,19 @@ class SidebarListItem extends BaseComponent {
     sidebarListItem.appendChild(icon);
     sidebarListItem.appendChild(display);
     this.htmlElem = sidebarListItem;
-    return sidebarListItem;
+    this.parent.appendChild(sidebarListItem);
   }
 }
 
 class Sidebar extends BaseComponent {
-  constructor(eventManager, projectManager) {
-    super();
+  constructor(parent, eventManager, projectManager) {
+    super(parent);
     this.eventManager = eventManager;
     this.projectManager = projectManager;
     this.list = [];
     this.activeListItem = null;
+
+    this.render();
   }
 
   render() {
@@ -52,22 +57,19 @@ class Sidebar extends BaseComponent {
     const projects = this.projectManager.findAll();
 
     projects.forEach((project) => {
-      const projectListItem = new SidebarListItem(project.name).render();
-
-      projectListItem.onclick = () => {
+      const projectListItem = new SidebarListItem(projectList, project.name);
+      projectListItem.htmlElem.onclick = () => {
         if (this.activeListItem) this.activeListItem.classList.remove("active");
-        this.activeListItem = projectListItem;
+        this.activeListItem = projectListItem.htmlElem;
         this.activeListItem.classList.add("active");
         this.eventManager.emit("project", { activeProject: project });
       };
-
-      projectList.appendChild(projectListItem);
     });
 
     sidebar.appendChild(brand);
     sidebar.appendChild(projectList);
     this.htmlElem = sidebar;
-    return sidebar;
+    this.parent.appendChild(sidebar);
   }
 }
 
