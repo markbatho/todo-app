@@ -4,9 +4,13 @@ class BaseComponent {
     this.parent = parent;
   }
 
+  update() {}
+
   clean() {
     if (this.htmlElem) this.htmlElem.remove();
   }
+
+  render() {}
 }
 
 export default BaseComponent;

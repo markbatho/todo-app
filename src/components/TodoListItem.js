@@ -4,7 +4,6 @@ class TodoListItem extends BaseComponent {
   constructor(parent, todo) {
     super(parent);
     this.todo = todo;
-
     this.render();
   }
 

@@ -18,6 +18,9 @@ class EventManager {
   }
 
   emit(event, data) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
     this.events[event].forEach((handler) => handler(data));
   }
 }

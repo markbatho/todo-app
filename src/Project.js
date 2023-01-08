@@ -1,4 +1,5 @@
-import { Todo } from "./Todo";
+import { todoPriorities } from "./Todo";
+import { isToday, isThisWeek } from "date-fns";
 
 class Project {
   constructor(name) {
@@ -42,12 +43,20 @@ class ProjectManager {
   }
 
   create(project) {
+    if (this.findOne({ property: "name", value: project.name })) {
+      console.log("Project already exists!");
+      return;
+    }
     const items = JSON.parse(this.storage.getItem(this.store));
     items.push(project);
     this.storage.setItem(this.store, JSON.stringify(items));
   }
 
   update(query, project) {
+    if (this.findOne({ property: "name", value: project.name })) {
+      console.log("Project already exists!");
+      return;
+    }
     const items = JSON.parse(this.storage.getItem(this.store));
     const updated = items.map((element) => {
       if (_.isEqual(element[query.property], query.value)) {
@@ -70,8 +79,6 @@ class ProjectManager {
       }
       return element;
     });
-
-    console.log(updated);
 
     this.storage.setItem(this.store, JSON.stringify(updated));
   }
@@ -99,4 +106,40 @@ class ProjectManager {
   }
 }
 
-export { Project, ProjectManager };
+class CollectionManager {
+  constructor(todoManager) {
+    this.todoManager = todoManager;
+  }
+
+  getAll() {
+    return this.todoManager.findAll();
+  }
+
+  getToday() {
+    let todos = this.todoManager.findAll();
+    todos = todos.filter((todo) => {
+      return isToday(new Date(todo.dueDate)) ? true : false;
+    });
+    return todos;
+  }
+
+  getWeek() {
+    let todos = this.todoManager.findAll();
+    todos = todos.filter((todo) => {
+      return isThisWeek(new Date(todo.dueDate)) ? true : false;
+    });
+    return todos;
+  }
+
+  getImportant() {
+    console.log("Are we here");
+    let todos = this.todoManager.findAll({
+      property: "priority",
+      value: todoPriorities.high,
+    });
+    console.log(todos);
+    return todos;
+  }
+}
+
+export { Project, ProjectManager, CollectionManager };

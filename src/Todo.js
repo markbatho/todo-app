@@ -1,5 +1,11 @@
 import _ from "lodash";
 
+const todoPriorities = {
+  low: { value: "low", color: "#1976d2" },
+  medium: { value: "medium", color: "#fbc02d" },
+  high: { value: "high", color: "#d32f2f" },
+};
+
 class Todo {
   constructor(title, desc, dueDate, priority, project) {
     this.title = title;
@@ -47,12 +53,20 @@ class TodoManager {
   }
 
   create(todo) {
+    if (this.findOne({ property: "title", value: todo.title })) {
+      console.log("Todo already exists!");
+      return;
+    }
     const items = JSON.parse(this.storage.getItem(this.store));
     items.push(todo);
     this.storage.setItem(this.store, JSON.stringify(items));
   }
 
   update(query, todo) {
+    if (this.findOne({ property: "title", value: todo.title })) {
+      console.log("Todo already exists!");
+      return;
+    }
     const items = JSON.parse(this.storage.getItem(this.store));
     const updated = items.map((element) => {
       if (_.isEqual(element[query.property], query.value)) {
@@ -77,4 +91,4 @@ class TodoManager {
   }
 }
 
-export { Todo, TodoManager };
+export { todoPriorities, Todo, TodoManager };
