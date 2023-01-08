@@ -1,3 +1,5 @@
+import "./styles/app.css";
+
 import ProjectUI from "./components/Project";
 import Sidebar from "./components/Sidebar";
 import EventManager from "./EventManager";
@@ -20,6 +22,7 @@ function app(content) {
 
   eventManager.on("project", projectUI.update.bind(projectUI));
   eventManager.on("collection", projectUI.update.bind(projectUI));
+  eventManager.on("create-project", sidebar.update.bind(sidebar));
 
   projectManager.create(p1);
   projectManager.create(p2);

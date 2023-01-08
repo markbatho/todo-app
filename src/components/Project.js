@@ -13,9 +13,11 @@ class ProjectUI extends BaseComponent {
 
   update(data) {
     if (data.activeProject) {
+      this.activeCollection = null;
       this.activeProject = data.activeProject;
     }
     if (data.activeCollection) {
+      this.activeProject = null;
       this.activeCollection = data.activeCollection;
     }
     this.render();
@@ -24,11 +26,13 @@ class ProjectUI extends BaseComponent {
   render() {
     super.clean();
     const projectUI = document.createElement("div");
+    const projectName = document.createElement("h2");
     projectUI.classList.add("project");
 
     const todoList = document.createElement("ul");
 
     if (this.activeProject) {
+      projectName.textContent = this.activeProject.name;
       const todos = this.todoManager.findAll({
         property: "project",
         value: this.activeProject,
@@ -62,6 +66,7 @@ class ProjectUI extends BaseComponent {
       });
     }
 
+    projectUI.appendChild(projectName);
     projectUI.appendChild(todoList);
 
     this.htmlElem = projectUI;
