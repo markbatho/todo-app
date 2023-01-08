@@ -1,5 +1,4 @@
 import "../styles/sidebar.css";
-import projectIcon from "../icons/project.svg";
 import allIcon from "../icons/inbox.svg";
 import todayIcon from "../icons/today.svg";
 import weekIcon from "../icons/week.svg";
@@ -7,57 +6,8 @@ import impIcon from "../icons/star.svg";
 import BaseComponent from "./BaseComponent";
 import createProjectIcon from "../icons/plus.svg";
 import CreateProjectModal from "./CreateProjectModal";
-
-class SidebarListItem extends BaseComponent {
-  constructor(parent, display) {
-    super(parent);
-    this.display = display;
-    this.render();
-  }
-
-  render() {
-    super.clean();
-    const sidebarListItem = document.createElement("li");
-    const icon = document.createElement("div");
-    const display = document.createElement("a");
-
-    icon.classList.add("project-list-icon");
-    icon.innerHTML = projectIcon;
-
-    display.textContent = this.display;
-
-    sidebarListItem.appendChild(icon);
-    sidebarListItem.appendChild(display);
-    this.htmlElem = sidebarListItem;
-    this.parent.prepend(sidebarListItem);
-  }
-}
-
-class CollectionListItem extends BaseComponent {
-  constructor(parent, display, icon) {
-    super(parent);
-    this.display = display;
-    this.icon = icon;
-    this.render();
-  }
-
-  render() {
-    super.clean();
-    const collectionListItem = document.createElement("li");
-    const icon = document.createElement("div");
-    const display = document.createElement("a");
-
-    icon.classList.add("project-list-icon");
-    icon.innerHTML = this.icon;
-
-    display.textContent = this.display;
-
-    collectionListItem.appendChild(icon);
-    collectionListItem.appendChild(display);
-    this.htmlElem = collectionListItem;
-    this.parent.appendChild(collectionListItem);
-  }
-}
+import CollectionListItem from "./CollectionListItem";
+import SidebarListItem from "./SidebarListItem";
 
 class Sidebar extends BaseComponent {
   constructor(parent, eventManager, projectManager) {
@@ -84,7 +34,7 @@ class Sidebar extends BaseComponent {
   update(data) {
     this.render();
 
-    if (data.projectName) {
+    if (data && data.projectName) {
       const newActiveItem = this.list.reduce((prev, curr) => {
         return curr.innerText === data.projectName ? curr : prev;
       });
@@ -168,7 +118,14 @@ class Sidebar extends BaseComponent {
     const projects = this.projectManager.findAll();
 
     projects.forEach((project) => {
-      const projectListItem = new SidebarListItem(projectList, project.name);
+      const projectListItem = new SidebarListItem(
+        projectList,
+        project,
+        this.isModalOpen,
+        this.closeModal,
+        this.eventManager,
+        this.projectManager
+      );
       this.list.push(projectListItem.htmlElem);
       projectListItem.htmlElem.onclick = () => {
         this.setActiveItem(projectListItem.htmlElem);

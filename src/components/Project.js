@@ -2,24 +2,35 @@ import BaseComponent from "./BaseComponent";
 import TodoListItem from "./TodoListItem";
 
 class ProjectUI extends BaseComponent {
-  constructor(parent, todoManager, collectionManager) {
+  constructor(
+    parent,
+    todoManager,
+    collectionManager,
+    defaultCollectionItemName
+  ) {
     super(parent);
     this.todoManager = todoManager;
     this.activeProject = null;
-    this.activeCollection = null;
+    this.activeCollection = defaultCollectionItemName;
+    this.defaultCollectionItemName = defaultCollectionItemName;
     this.collectionManager = collectionManager;
     this.render();
   }
 
   update(data) {
-    if (data.activeProject) {
+    if (data && data.activeProject) {
       this.activeCollection = null;
       this.activeProject = data.activeProject;
     }
-    if (data.activeCollection) {
+    if (data && data.activeCollection) {
       this.activeProject = null;
       this.activeCollection = data.activeCollection;
     }
+    this.render();
+  }
+
+  reset() {
+    this.activeCollection = this.defaultCollectionItemName;
     this.render();
   }
 
@@ -44,8 +55,9 @@ class ProjectUI extends BaseComponent {
     }
 
     if (this.activeCollection) {
-      let todos;
+      projectName.textContent = this.activeCollection;
 
+      let todos;
       switch (this.activeCollection) {
         case "All":
           todos = this.collectionManager.getAll();

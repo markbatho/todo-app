@@ -14,7 +14,12 @@ function app(content) {
   const collectionManager = new CollectionManager(todoManager);
 
   const sidebar = new Sidebar(content, eventManager, projectManager);
-  const projectUI = new ProjectUI(content, todoManager, collectionManager);
+  const projectUI = new ProjectUI(
+    content,
+    todoManager,
+    collectionManager,
+    "All"
+  );
 
   const p1 = new Project("Test 1");
   const p2 = new Project("Test 2");
@@ -23,6 +28,8 @@ function app(content) {
   eventManager.on("project", projectUI.update.bind(projectUI));
   eventManager.on("collection", projectUI.update.bind(projectUI));
   eventManager.on("create-project", sidebar.update.bind(sidebar));
+  eventManager.on("delete-project", sidebar.update.bind(sidebar));
+  eventManager.on("delete-project", projectUI.reset.bind(projectUI));
 
   projectManager.create(p1);
   projectManager.create(p2);
