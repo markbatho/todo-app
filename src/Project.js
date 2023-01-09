@@ -1,4 +1,4 @@
-import { todoPriorities } from "./Todo";
+import { todoPriorities, Todo } from "./Todo";
 import { isToday, isThisWeek } from "date-fns";
 
 class Project {
@@ -44,7 +44,6 @@ class ProjectManager {
 
   create(project) {
     if (this.findOne({ property: "name", value: project.name })) {
-      console.log("Project already exists!");
       return;
     }
     const items = JSON.parse(this.storage.getItem(this.store));
@@ -54,7 +53,6 @@ class ProjectManager {
 
   update(query, project) {
     if (this.findOne({ property: "name", value: project.name })) {
-      console.log("Project already exists!");
       return;
     }
     const items = JSON.parse(this.storage.getItem(this.store));
@@ -67,10 +65,17 @@ class ProjectManager {
         });
 
         todos.forEach((todo) => {
-          todo.project = project;
+          const updatedTodo = new Todo(
+            todo.title,
+            todo.desc,
+            todo.dueDate,
+            todo.priority,
+            project
+          );
+
           this.todoManager.update(
             { property: "title", value: todo.title },
-            todo
+            updatedTodo
           );
         });
 

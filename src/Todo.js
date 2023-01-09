@@ -54,7 +54,6 @@ class TodoManager {
 
   create(todo) {
     if (this.findOne({ property: "title", value: todo.title })) {
-      console.log("Todo already exists!");
       return;
     }
     const items = JSON.parse(this.storage.getItem(this.store));
@@ -63,15 +62,15 @@ class TodoManager {
   }
 
   update(query, todo) {
-    if (this.findOne({ property: "title", value: todo.title })) {
-      console.log("Todo already exists!");
-      return;
-    }
+    // if (this.findOne({ property: "title", value: todo.title })) {
+    //   console.log("Todo already exists!");
+    //   return;
+    // }
     const items = JSON.parse(this.storage.getItem(this.store));
     const updated = items.map((element) => {
       if (_.isEqual(element[query.property], query.value)) {
         element = todo;
-        return element;
+        return todo;
       }
       return element;
     });

@@ -14,8 +14,6 @@ class TodoListItem extends BaseComponent {
     const h3 = document.createElement("h3");
     h3.textContent = this.todo.title;
 
-    console.log(this.todo.title);
-
     header.classList.add("todo-header");
     todoListItem.classList.add("todo-list-item");
 

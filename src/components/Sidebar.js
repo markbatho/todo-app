@@ -39,7 +39,6 @@ class Sidebar extends BaseComponent {
         return curr.innerText === data.projectName ? curr : prev;
       });
       this.setActiveItem(newActiveItem);
-      console.log(newActiveItem.innerText);
     }
   }
 
