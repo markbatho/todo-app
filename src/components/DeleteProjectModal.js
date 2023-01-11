@@ -1,58 +1,46 @@
-import BaseComponent from "./BaseComponent";
+import BaseModal from "../../BaseModal";
+import Form from "./form/Form";
 
-class DeleteProjectModal extends BaseComponent {
-  constructor(
-    parent,
-    project,
-    eventManager,
-    projectManager,
-    closeModal,
-    caller
-  ) {
+class DeleteProjectModal extends BaseModal {
+  constructor(parent, project, eventManager, projectManager) {
     super(parent);
     this.project = project;
     this.eventManager = eventManager;
     this.projectManager = projectManager;
-    this.closeModal = closeModal;
-    this.caller = caller;
-    this.projectName = "";
     this.render();
   }
 
   submitForm(e) {
     e.preventDefault();
     // Delete
-    this.projectManager.remove({ property: "name", value: this.project.name });
-    this.closeModal.call(this.caller, this.htmlElem);
-    // this.eventManager.emit("project", { activeProject: project });
-    // this.eventManager.emit("create-project", { projectName: project.name });
-    this.eventManager.emit("delete-project", null);
   }
-
-  update() {}
 
   render() {
     super.clean();
-    const editProjectModal = document.createElement("div");
-    const editProjectForm = document.createElement("form");
-    const submit = document.createElement("button");
-    const cancel = document.createElement("button");
+    const modal = document.createElement("div");
 
-    submit.textContent = "Confirm";
+    const cancel = document.createElement("button");
     cancel.textContent = "Cancel";
-    cancel.type = "button";
     cancel.onclick = () => {
-      this.closeModal.call(this.caller, editProjectModal);
+      super.close();
     };
 
-    editProjectForm.appendChild(submit);
-    editProjectForm.appendChild(cancel);
-    editProjectForm.onsubmit = (e) => this.submitForm(e);
+    const form = new Form(modal, "Are you sure to delete project?", []);
 
-    editProjectModal.classList.add("modal");
-    editProjectModal.appendChild(editProjectForm);
-    this.htmlElem = editProjectModal;
-    this.parent.appendChild(editProjectModal);
+    form.htmlElem.onsubmit = (e) => {
+      e.preventDefault();
+      this.projectManager.remove({
+        property: "name",
+        value: this.project.name,
+      });
+      super.close();
+      this.eventManager.emit("delete-project", null);
+    };
+
+    modal.classList.add("modal");
+    modal.appendChild(cancel);
+    this.htmlElem = modal;
+    this.parent.appendChild(modal);
   }
 }
 

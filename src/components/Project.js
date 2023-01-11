@@ -77,7 +77,7 @@ class ProjectUI extends BaseComponent {
       });
 
       todos.map((todo) => {
-        new TodoListItem(todoList, todo);
+        new TodoListItem(todoList, todo, this.eventManager, this.todoManager);
       });
     }
 

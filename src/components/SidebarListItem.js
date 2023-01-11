@@ -6,18 +6,9 @@ import DeleteProjectModal from "./DeleteProjectModal";
 import EditProjectModal from "./EditProjectModal";
 
 class SidebarListItem extends BaseComponent {
-  constructor(
-    parent,
-    project,
-    status,
-    closeModal,
-    eventManager,
-    projectManager
-  ) {
+  constructor(parent, project, eventManager, projectManager) {
     super(parent);
     this.project = project;
-    this.status = status;
-    this.closeModal = closeModal;
     this.eventManager = eventManager;
     this.projectManager = projectManager;
     this.render();
@@ -42,9 +33,7 @@ class SidebarListItem extends BaseComponent {
         document.body,
         this.project,
         this.eventManager,
-        this.projectManager,
-        this.closeModal,
-        this
+        this.projectManager
       );
     };
 
@@ -53,9 +42,7 @@ class SidebarListItem extends BaseComponent {
         document.body,
         this.project,
         this.eventManager,
-        this.projectManager,
-        this.closeModal,
-        this
+        this.projectManager
       );
     };
 

@@ -16,13 +16,7 @@ class Sidebar extends BaseComponent {
     this.projectManager = projectManager;
     this.list = [];
     this.activeListItem = null;
-    this.isModalOpen = false;
     this.render();
-  }
-
-  closeModal(modal) {
-    modal.remove();
-    this.isModalOpen = false;
   }
 
   setActiveItem(item) {
@@ -33,7 +27,6 @@ class Sidebar extends BaseComponent {
 
   update(data) {
     this.render();
-
     if (data && data.projectName) {
       const newActiveItem = this.list.reduce((prev, curr) => {
         return curr.innerText === data.projectName ? curr : prev;
@@ -94,17 +87,12 @@ class Sidebar extends BaseComponent {
     createProjectBtn.innerHTML = createProjectIcon;
 
     createProjectBtn.onclick = () => {
-      console.log(this.isModalOpen);
-      if (!this.isModalOpen) {
-        this.isModalOpen = true;
-        new CreateProjectModal(
-          document.body,
-          this.eventManager,
-          this.projectManager,
-          this.closeModal,
-          this
-        );
-      }
+      new CreateProjectModal(
+        document.body,
+        this.eventManager,
+        this.projectManager,
+        this.closeModal
+      );
     };
 
     projectHeader.classList.add("project-header");
@@ -120,8 +108,6 @@ class Sidebar extends BaseComponent {
       const projectListItem = new SidebarListItem(
         projectList,
         project,
-        this.isModalOpen,
-        this.closeModal,
         this.eventManager,
         this.projectManager
       );
