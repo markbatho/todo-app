@@ -18,13 +18,7 @@ class ProjectUI extends BaseComponent {
     this.activeCollection = defaultCollectionItemName;
     this.defaultCollectionItemName = defaultCollectionItemName;
     this.collectionManager = collectionManager;
-    this.isModalOpen = false;
     this.render();
-  }
-
-  closeModal(modal) {
-    modal.remove();
-    this.isModalOpen = false;
   }
 
   update(data) {
@@ -62,9 +56,7 @@ class ProjectUI extends BaseComponent {
           document.body,
           this.activeProject,
           this.eventManager,
-          this.todoManager,
-          this.closeModal,
-          this
+          this.todoManager
         );
       };
 
@@ -101,7 +93,7 @@ class ProjectUI extends BaseComponent {
       }
 
       todos.forEach((todo) => {
-        new TodoListItem(todoList, todo);
+        new TodoListItem(todoList, todo, this.eventManager, this.todoManager);
       });
     }
 

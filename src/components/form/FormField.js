@@ -28,16 +28,17 @@ class FormField extends BaseComponent {
       select.id = this.id;
       select.name = this.name;
 
-      Object.keys(this.options).map((priority) => {
+      Object.keys(this.options).forEach((priority) => {
         const option = document.createElement("option");
         option.value = priority;
         option.label = priority;
 
-        if (this.value) {
-          if (priority === this.value.value) {
-            option.selected = true;
-          }
-        }
+        // TODO/BUG: Set value correctly
+        // if (this.value) {
+        //   if (priority === this.value.value) {
+        //     option.selected = true;
+        //   }
+        // }
 
         select.appendChild(option);
       });
@@ -58,6 +59,12 @@ class FormField extends BaseComponent {
       input.name = this.name;
       input.type = this.type;
       input.value = this.value;
+
+      if (this.type === "date") {
+        if (this.value) {
+          input.valueAsDate = new Date(this.value);
+        }
+      }
 
       input.onchange = () => {
         this.value = input.value;

@@ -1,12 +1,12 @@
 import BaseModal from "../../BaseModal";
 import Form from "./form/Form";
 
-class DeleteProjectModal extends BaseModal {
-  constructor(parent, project, eventManager, projectManager) {
+class DeleteTodoModal extends BaseModal {
+  constructor(parent, todo, eventManager, todoManager) {
     super(parent);
-    this.project = project;
+    this.todo = todo;
     this.eventManager = eventManager;
-    this.projectManager = projectManager;
+    this.todoManager = todoManager;
     this.render();
   }
 
@@ -20,16 +20,16 @@ class DeleteProjectModal extends BaseModal {
       super.close();
     };
 
-    const form = new Form(modal, "Are you sure to delete project?", []);
+    const form = new Form(modal, "Are you sure to delete todo item?", []);
 
     form.htmlElem.onsubmit = (e) => {
       e.preventDefault();
-      this.projectManager.remove({
-        property: "name",
-        value: this.project.name,
+      this.todoManager.remove({
+        property: "title",
+        value: this.todo.title,
       });
       super.close();
-      this.eventManager.emit("delete-project", null);
+      this.eventManager.emit("project", this.todo.project);
     };
 
     modal.classList.add("modal");
@@ -39,4 +39,4 @@ class DeleteProjectModal extends BaseModal {
   }
 }
 
-export default DeleteProjectModal;
+export default DeleteTodoModal;

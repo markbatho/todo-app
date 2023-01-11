@@ -27,6 +27,7 @@ function app(content) {
   eventManager.on("create-project", sidebar.update.bind(sidebar));
   eventManager.on("delete-project", sidebar.update.bind(sidebar));
   eventManager.on("delete-project", projectUI.reset.bind(projectUI));
+  eventManager.on("update", projectUI.update.bind(projectUI));
 }
 
 app(content);

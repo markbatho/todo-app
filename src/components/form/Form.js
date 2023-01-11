@@ -32,6 +32,7 @@ class Form extends BaseComponent {
         field.options
       );
 
+      this.data[formField.name] = formField.value;
       formField.htmlElem.onchange = () => {
         this.data[formField.name] = formField.value;
       };

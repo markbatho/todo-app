@@ -44,7 +44,7 @@ class CreateTodoModal extends BaseModal {
       {
         title: "Todo Priority",
         id: "priority",
-        name: "priotity",
+        name: "priority",
         type: "selection",
         value: null,
         options: todoPriorities,

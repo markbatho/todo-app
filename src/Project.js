@@ -137,12 +137,10 @@ class CollectionManager {
   }
 
   getImportant() {
-    console.log("Are we here");
     let todos = this.todoManager.findAll({
       property: "priority",
       value: todoPriorities.high,
     });
-    console.log(todos);
     return todos;
   }
 }

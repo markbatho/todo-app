@@ -1,5 +1,5 @@
 import BaseModal from "../../BaseModal";
-import { todoPriorities } from "../Todo";
+import { todoPriorities, Todo } from "../Todo";
 import Form from "./form/Form";
 
 class EditTodoModal extends BaseModal {
@@ -9,8 +9,6 @@ class EditTodoModal extends BaseModal {
     this.eventManager = eventManager;
     this.todoManager = todoManager;
     this.render();
-
-    // this.eventManager.emit("modal", null);
   }
 
   render() {
@@ -45,7 +43,7 @@ class EditTodoModal extends BaseModal {
       {
         title: "Todo Priority",
         id: "priority",
-        name: "priotity",
+        name: "priority",
         type: "selection",
         value: this.todo.priority,
         options: todoPriorities,
@@ -53,9 +51,22 @@ class EditTodoModal extends BaseModal {
     ]);
 
     form.htmlElem.onsubmit = (e) => {
-      // TODO
       e.preventDefault();
-      console.log(form.data);
+
+      const updatedTodo = new Todo(
+        form.data.title,
+        form.data.desc,
+        form.data.dueDate,
+        form.data.priority,
+        this.todo.project
+      );
+
+      this.todoManager.update(
+        { property: "title", value: this.todo.title },
+        updatedTodo
+      );
+
+      this.eventManager.emit("update", null);
       super.close();
     };
 
