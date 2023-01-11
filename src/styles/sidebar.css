@@ -15,27 +15,27 @@ aside {
   height: 24px;
 }
 
-ul {
+aside ul {
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
 }
 
-li {
+aside li {
   display: flex;
   cursor: pointer;
 }
 
-li:hover {
+aside li:hover {
   background-color: #ccc;
 }
 
-li svg {
+aside li svg {
   width: 24px;
   height: 24px;
 }
 
-li.active {
+aside li.active {
   background-color: #ccc;
 }

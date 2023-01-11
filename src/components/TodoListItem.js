@@ -1,5 +1,7 @@
 import editIcon from "../icons/edit-project.svg";
 import deleteIcon from "../icons/delete.svg";
+import openIcon from "../icons/down.svg";
+import closeIcon from "../icons/up.svg";
 import BaseComponent from "./BaseComponent";
 import EditTodoModal from "./EditTodoModal";
 import DeleteTodoModal from "./DeleteTodoModal";
@@ -22,12 +24,31 @@ class TodoListItem extends BaseComponent {
     const h3 = document.createElement("h3");
     const editBtn = document.createElement("button");
     const deleteBtn = document.createElement("button");
+    const toggleBtn = document.createElement("button");
+    const todoListHeader = document.createElement("div");
+    const todoListItemExt = document.createElement("div");
+    const todoListFooter = document.createElement("div");
+    const desc = document.createElement("p");
+    const dueDate = document.createElement("p");
+    const priority = document.createElement("p");
+
+    desc.textContent = this.todo.desc;
+    dueDate.textContent = this.todo.dueDate;
+    priority.textContent = this.todo.priority.value;
+
+    todoListFooter.appendChild(dueDate);
+    todoListFooter.appendChild(priority);
+
+    todoListItemExt.appendChild(desc);
+    todoListItemExt.appendChild(todoListFooter);
+    todoListItemExt.classList.add("todo-list-extended");
 
     checkbox.type = "checkbox";
     checkbox.checked = this.todo.isDone;
     h3.textContent = this.todo.title;
     editBtn.innerHTML = editIcon;
     deleteBtn.innerHTML = deleteIcon;
+    toggleBtn.innerHTML = openIcon;
 
     checkbox.onchange = () => {
       console.log(checkbox.checked);
@@ -63,13 +84,31 @@ class TodoListItem extends BaseComponent {
       );
     };
 
-    header.classList.add("todo-header");
-    todoListItem.classList.add("todo-list-item");
+    let isOpen = false;
+    toggleBtn.onclick = () => {
+      if (isOpen) {
+        todoListItemExt.classList.remove("open");
+        toggleBtn.innerHTML = openIcon;
+        isOpen = false;
+      } else {
+        todoListItemExt.classList.add("open");
+        toggleBtn.innerHTML = closeIcon;
+        isOpen = true;
+      }
+    };
 
-    todoListItem.appendChild(checkbox);
-    todoListItem.appendChild(h3);
-    todoListItem.appendChild(editBtn);
-    todoListItem.appendChild(deleteBtn);
+    header.classList.add("todo-header");
+
+    todoListHeader.appendChild(checkbox);
+    todoListHeader.appendChild(h3);
+    todoListHeader.appendChild(editBtn);
+    todoListHeader.appendChild(deleteBtn);
+    todoListHeader.appendChild(toggleBtn);
+    todoListHeader.classList.add("todo-list-item-header");
+
+    todoListItem.appendChild(todoListHeader);
+    todoListItem.appendChild(todoListItemExt);
+    todoListItem.classList.add("todo-list-item");
     this.htmlElem = todoListItem;
     this.parent.appendChild(todoListItem);
   }

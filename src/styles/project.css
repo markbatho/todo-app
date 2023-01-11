@@ -6,3 +6,31 @@
   width: 24px;
   height: 24px;
 }
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+}
+
+.todo-list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+.todo-list-item-header {
+  display: flex;
+}
+
+.todo-list-extended {
+  display: none;
+  flex-direction: column;
+}
+
+.open {
+  display: flex;
+}

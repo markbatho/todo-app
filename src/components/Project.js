@@ -1,3 +1,4 @@
+import "../styles/project.css";
 import createIcon from "../icons/plus.svg";
 import BaseComponent from "./BaseComponent";
 import CreateTodoModal from "./CreateTodoModal";
@@ -47,6 +48,7 @@ class ProjectUI extends BaseComponent {
     projectHeader.appendChild(projectName);
 
     const todoList = document.createElement("ul");
+    todoList.classList.add("todo-list");
 
     if (this.activeProject) {
       const createTodo = document.createElement("button");
