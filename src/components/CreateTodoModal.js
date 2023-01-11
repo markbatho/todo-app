@@ -11,15 +11,10 @@ class CreateTodoModal extends BaseModal {
     this.render();
   }
 
-  submitForm(e) {}
-
   render() {
     super.clean();
     const modal = document.createElement("div");
-    const cancel = document.createElement("button");
-    cancel.textContent = "Cancel";
-
-    const form = new Form(modal, "Create todo item", [
+    const form = new Form(modal, this, "Create todo item", [
       {
         title: "Todo Title",
         id: "title",
@@ -60,17 +55,13 @@ class CreateTodoModal extends BaseModal {
         form.data.priority,
         this.project
       );
+
       this.todoManager.create(todo);
       this.eventManager.emit("project", null);
       super.close();
     };
 
-    cancel.onclick = () => {
-      super.close();
-    };
-
     modal.classList.add("modal");
-    modal.appendChild(cancel);
     this.htmlElem = modal;
     this.parent.appendChild(modal);
   }

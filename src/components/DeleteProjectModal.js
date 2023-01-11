@@ -13,14 +13,7 @@ class DeleteProjectModal extends BaseModal {
   render() {
     super.clean();
     const modal = document.createElement("div");
-
-    const cancel = document.createElement("button");
-    cancel.textContent = "Cancel";
-    cancel.onclick = () => {
-      super.close();
-    };
-
-    const form = new Form(modal, "Are you sure to delete project?", []);
+    const form = new Form(modal, this, "Are you sure to delete project?", []);
 
     form.htmlElem.onsubmit = (e) => {
       e.preventDefault();
@@ -33,7 +26,6 @@ class DeleteProjectModal extends BaseModal {
     };
 
     modal.classList.add("modal");
-    modal.appendChild(cancel);
     this.htmlElem = modal;
     this.parent.appendChild(modal);
   }

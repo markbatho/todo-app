@@ -47,6 +47,10 @@ class Sidebar extends BaseComponent {
 
     const collectionList = document.createElement("ul");
     const listAll = new CollectionListItem(collectionList, "All", allIcon);
+
+    // Default active item
+    this.setActiveItem(listAll.htmlElem);
+
     const listToday = new CollectionListItem(
       collectionList,
       "Today",

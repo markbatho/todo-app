@@ -14,11 +14,7 @@ class EditProjectModal extends BaseModal {
   render() {
     super.clean();
     const modal = document.createElement("div");
-
-    const cancel = document.createElement("button");
-    cancel.textContent = "Cancel";
-
-    const form = new Form(modal, "Edit project", [
+    const form = new Form(modal, this, "Edit project", [
       {
         title: "Project name",
         id: "projectName",
@@ -35,17 +31,13 @@ class EditProjectModal extends BaseModal {
         { property: "name", value: this.project.name },
         project
       );
+
       super.close();
       this.eventManager.emit("project", { activeProject: project });
       this.eventManager.emit("create-project", { projectName: project.name });
     };
 
-    cancel.onclick = () => {
-      super.close();
-    };
-
     modal.classList.add("modal");
-    modal.appendChild(cancel);
     this.htmlElem = modal;
     this.parent.appendChild(modal);
   }

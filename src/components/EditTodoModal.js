@@ -14,11 +14,7 @@ class EditTodoModal extends BaseModal {
   render() {
     super.clean();
     const modal = document.createElement("div");
-
-    const cancel = document.createElement("button");
-    cancel.textContent = "Cancel";
-
-    const form = new Form(modal, "Edit todo item", [
+    const form = new Form(modal, this, "Edit todo item", [
       {
         title: "Todo Title",
         id: "title",
@@ -70,11 +66,6 @@ class EditTodoModal extends BaseModal {
       super.close();
     };
 
-    cancel.onclick = () => {
-      super.close();
-    };
-
-    modal.appendChild(cancel);
     modal.classList.add("modal");
     this.htmlElem = modal;
     this.parent.appendChild(modal);

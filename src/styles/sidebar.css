@@ -2,12 +2,28 @@ aside {
   display: flex;
   flex-direction: column;
   width: 300px;
-  background-color: #f5f5f5;
+  background-color: var(--secondary-grey);
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 16px 24px;
 }
 
 .project-header {
   display: flex;
   justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.project-header button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .project-header button svg {
@@ -24,18 +40,68 @@ aside ul {
 
 aside li {
   display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
+  padding: 12px 24px;
+  color: var(--secondary-black);
 }
 
 aside li:hover {
-  background-color: #ccc;
+  background-color: var(--primary-grey);
 }
 
 aside li svg {
   width: 24px;
   height: 24px;
+  fill: var(--secondary-black);
+}
+
+aside li.active svg {
+  fill: var(--primary-black);
 }
 
 aside li.active {
-  background-color: #ccc;
+  color: var(--primary-black);
+  background-color: var(--primary-grey);
 }
+
+.project-list li {
+  justify-content: space-between;
+}
+
+.project-list li > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-list li > div:last-child {
+  display: none;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.project-list li:hover > div:last-child {
+  display: flex;
+}
+
+.project-list li.active > div:last-child {
+  display: flex;
+}
+
+.project-list li button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.project-list-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

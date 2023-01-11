@@ -1,20 +1,28 @@
+.project {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
 .project-header {
   display: flex;
 }
 
-.project-header button svg {
-  width: 24px;
-  height: 24px;
-}
-
 .todo-list {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
+  padding: 12px 24px;
+  gap: 16px;
 }
 
 .todo-list-item {
   display: flex;
   flex-direction: column;
+  padding: 16px;
+  gap: 8px;
+  border: 1px solid var(--primary-grey);
 }
 
 .todo-list-item svg {
@@ -24,11 +32,58 @@
 
 .todo-list-item-header {
   display: flex;
+  justify-content: space-between;
+}
+
+.todo-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo-title h3 {
+  margin: 0;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+}
+
+.todo-actions button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.todo-actions button:hover svg {
+  fill: var(--primary-black);
+}
+
+.todo-actions button svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--secondary-black);
 }
 
 .todo-list-extended {
   display: none;
   flex-direction: column;
+  gap: 8px;
+}
+
+.todo-list-extended p {
+  margin: 0;
+}
+
+.todo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-footer p:last-child {
+  padding: 4px;
 }
 
 .open {

@@ -22,6 +22,8 @@ class TodoListItem extends BaseComponent {
     const header = document.createElement("div");
     const checkbox = document.createElement("input");
     const h3 = document.createElement("h3");
+    const todoTitle = document.createElement("div");
+    const todoActions = document.createElement("div");
     const editBtn = document.createElement("button");
     const deleteBtn = document.createElement("button");
     const toggleBtn = document.createElement("button");
@@ -35,9 +37,11 @@ class TodoListItem extends BaseComponent {
     desc.textContent = this.todo.desc;
     dueDate.textContent = this.todo.dueDate;
     priority.textContent = this.todo.priority.value;
+    priority.style.backgroundColor = this.todo.priority.color;
 
     todoListFooter.appendChild(dueDate);
     todoListFooter.appendChild(priority);
+    todoListFooter.classList.add("todo-footer");
 
     todoListItemExt.appendChild(desc);
     todoListItemExt.appendChild(todoListFooter);
@@ -49,6 +53,15 @@ class TodoListItem extends BaseComponent {
     editBtn.innerHTML = editIcon;
     deleteBtn.innerHTML = deleteIcon;
     toggleBtn.innerHTML = openIcon;
+
+    todoTitle.appendChild(checkbox);
+    todoTitle.appendChild(h3);
+    todoTitle.classList.add("todo-title");
+
+    todoActions.appendChild(editBtn);
+    todoActions.appendChild(deleteBtn);
+    todoActions.appendChild(toggleBtn);
+    todoActions.classList.add("todo-actions");
 
     checkbox.onchange = () => {
       console.log(checkbox.checked);
@@ -99,11 +112,8 @@ class TodoListItem extends BaseComponent {
 
     header.classList.add("todo-header");
 
-    todoListHeader.appendChild(checkbox);
-    todoListHeader.appendChild(h3);
-    todoListHeader.appendChild(editBtn);
-    todoListHeader.appendChild(deleteBtn);
-    todoListHeader.appendChild(toggleBtn);
+    todoListHeader.appendChild(todoTitle);
+    todoListHeader.appendChild(todoActions);
     todoListHeader.classList.add("todo-list-item-header");
 
     todoListItem.appendChild(todoListHeader);

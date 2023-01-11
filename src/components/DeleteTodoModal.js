@@ -13,14 +13,7 @@ class DeleteTodoModal extends BaseModal {
   render() {
     super.clean();
     const modal = document.createElement("div");
-
-    const cancel = document.createElement("button");
-    cancel.textContent = "Cancel";
-    cancel.onclick = () => {
-      super.close();
-    };
-
-    const form = new Form(modal, "Are you sure to delete todo item?", []);
+    const form = new Form(modal, this, "Are you sure to delete todo item?", []);
 
     form.htmlElem.onsubmit = (e) => {
       e.preventDefault();
@@ -28,12 +21,12 @@ class DeleteTodoModal extends BaseModal {
         property: "title",
         value: this.todo.title,
       });
+
       super.close();
       this.eventManager.emit("project", this.todo.project);
     };
 
     modal.classList.add("modal");
-    modal.appendChild(cancel);
     this.htmlElem = modal;
     this.parent.appendChild(modal);
   }

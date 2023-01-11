@@ -13,11 +13,7 @@ class CreateProjectModal extends BaseModal {
   render() {
     super.clean();
     const modal = document.createElement("div");
-    const cancel = document.createElement("button");
-
-    cancel.textContent = "Cancel";
-
-    const form = new Form(modal, "Create new project", [
+    const form = new Form(modal, this, "Create new project", [
       {
         title: "Project name",
         id: "projectName",
@@ -36,11 +32,6 @@ class CreateProjectModal extends BaseModal {
       super.close();
     };
 
-    cancel.onclick = () => {
-      super.close();
-    };
-
-    modal.appendChild(cancel);
     modal.classList.add("modal");
     this.htmlElem = modal;
     this.parent.appendChild(modal);

@@ -18,6 +18,7 @@ class FormField extends BaseComponent {
     const label = document.createElement("label");
 
     formField.appendChild(label);
+    formField.classList.add("form-field");
 
     if (this.type === "selection") {
       label.htmlFor = this.id;
@@ -33,16 +34,16 @@ class FormField extends BaseComponent {
         option.value = priority;
         option.label = priority;
 
-        // TODO/BUG: Set value correctly
-        // if (this.value) {
-        //   if (priority === this.value.value) {
-        //     option.selected = true;
-        //   }
-        // }
+        if (this.value) {
+          if (priority === this.value.value) {
+            option.selected = true;
+          }
+        }
 
         select.appendChild(option);
       });
 
+      this.value = this.options[select.value];
       select.onchange = () => {
         this.value = this.options[select.value];
       };
